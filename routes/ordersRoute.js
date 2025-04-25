@@ -1,10 +1,9 @@
 // routes/test.js
 const express = require('express');
+const { getAllOrders } = require('../controllers/ordersController')
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    console.log('🔥 Request to /api/test received');
-    res.send('API Test OK!');
-});
+
+router.get('/', getAllOrders);
 
 module.exports = router;
