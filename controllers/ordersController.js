@@ -13,3 +13,15 @@ exports.getAllOrders = catchAsync(async (req, res, next) => {
         }
     });
 });
+
+exports.addOrder = catchAsync(async (req, res, next) => {
+
+    const newOrder = await Order.create(req.body);
+
+    res.status(201).json({
+        status: 'success',
+        data: {
+            order: newOrder
+        }
+    });
+});
