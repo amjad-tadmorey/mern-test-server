@@ -3,17 +3,21 @@ const app = require('./app')
 const mongoose = require('mongoose');
 
 
-mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('Connected to MongoDB'))
-    .then(() => {
-
+mongoose
+    .connect(process.env.DB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
     })
-    .catch((err) => console.log('Error connecting to MongoDB:', err));
+    .then(() => console.log('✅ DB connection successful!'))
+    .catch((err) => {
+        console.error('❌ DB connection failed: ', err);
+        process.exit(1);
+    });
 
-const port = process.env.PORT
-const server = app.listen(port, () => {
-    console.log(`Runing on port ${port}...${process.env.NODE_ENV}`);
-})
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`🚀 Server is running on port ${port} in ${process.env.NODE_ENV} mode`);
+});
 
 process.on('SIGTERM', () => {
     server.close(() => {
